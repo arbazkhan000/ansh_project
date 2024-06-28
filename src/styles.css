@@ -1,0 +1,18 @@
+/* .navbar{
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.container-fluid{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+}
+.navbar-nav{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 2rem;
+} */
+
+.active{
+    font-weight: 600;
+}
