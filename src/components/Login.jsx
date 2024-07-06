@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/authContext";
+import axios from "axios";
 
 export default function Login() {
     const {storetokenInLS}=useAuth();
@@ -10,7 +11,7 @@ export default function Login() {
         password:''
     });
 
-    const navigate=useNavigate();
+    // const navigate=useNavigate();
     const handleChange=(e)=>{
         setUser({...user,[e.target.name]:e.target.value})
     }
@@ -18,35 +19,43 @@ export default function Login() {
     const handleSubmit=async(e)=>{
         e.preventDefault();
 
-        try{
-            const response= await fetch("http://localhost:5000/api/auth/login",{
-                method:'POST',
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body:JSON.stringify(user)
-            });
-            console.log(response); 
+    //     try{
+    //         const response= await fetch("http://localhost:5000/api/auth/login",{
+    //             method:'POST',
+    //             mode: "cors",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body:JSON.stringify(user)
+    //         });
+    //         console.log(response); 
 
-            if(response.status===200){
-                alert("login succesful");
-                const res_data=await response.json();
-                storetokenInLS(res_data.token);
-                setUser({email:'',
-                password:''});
-                navigate('/')
-            }
-            else{
-                alert("invalid login credentials");
-                setUser({email:'',
-                password:''})
-            }
+    //         if(response.status===200){
+    //             alert("login succesful");
+    //             const res_data=await response.json();
+    //             storetokenInLS(res_data.token);
+    //             setUser({email:'',
+    //             password:''});
+    //             navigate('/')
+    //         }
+    //         else{
+    //             alert("invalid login credentials");
+    //             setUser({email:'',
+    //             password:''})
+    //         }
         
-    }
-    catch(err){
-        console.log(err);
-    }
+    // }
+    // catch(err){
+    //     console.log(err);
+    // }
+
+
+    const res = await axios.post("http://localhost:5000/api/auth/login", user, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    console.log(res.data);
 }
     return (
         <>

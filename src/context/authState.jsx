@@ -19,33 +19,35 @@ export default function AuthState(props){
 
     // jwt authentication --> to get the data of logged in user
 
-    const userAuthorisation=async()=>{
-        try{
-            const response= await fetch("http://localhost:5000/api/auth/user",{
-                method:'GET',
-                mode:'cors',
-                headers: {
-                    Authorisation:`Bearer ${token}`
-                },
-            });
-            // if(response.status!==200){
-            //     console.log("error occured");
-            // }
-            const data=await response.json();
-            setLoggedInUser(data.userData);
-        }
-        catch(err){
-            console.log(err);
+    // const userAuthorisation=async()=>{
+    //     try{
+    //         const response= await fetch("http://localhost:5000/api/auth/user",{
+    //             method:'GET',
+    //             mode:'cors',
+    //             headers: {
+    //                 Authorisation:`Bearer ${token}`
+    //             },
+    //         });
+    //         // if(response.status!==200){
+    //         //     console.log("error occured");
+    //         // }
+    //         const data=await response.json();
+    //         setLoggedInUser(data.userData);
+    //     }
+    //     catch(err){
+    //         console.log(err);
             
-        }
+    //     }
 
-    }
-    useEffect(()=>{
-        userAuthorisation()
-    },[])
-    return(
-        <authContext.Provider value={{storetokenInLS,isLoggedIn,LogoutUser,loggedInUser}}>
+    // }
+    // useEffect(()=>{
+    //     userAuthorisation()
+    // },[])
+    return (
+        <authContext.Provider
+            value={{ storetokenInLS, isLoggedIn, LogoutUser, loggedInUser }}
+        >
             {props.children}
         </authContext.Provider>
-    )
+    );
 }
